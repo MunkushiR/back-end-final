@@ -9,7 +9,6 @@ class CreatePets < ActiveRecord::Migration[7.0]
       t.string :contact, null: false
       t.string :photos, null: false
       t.datetime :due
-      t.datetime :createdAt, null:false
       t.integer :status, null: false, default: 0
 
     end
