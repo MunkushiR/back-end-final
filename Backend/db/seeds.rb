@@ -1,34 +1,30 @@
-require 'sinatra/activerecord'
-require_relative 'models/pet'  # Assuming you have a 'Pet' model
+require 'faker'
+require_relative '../app/models/user'
+require_relative '../app/models/pets'
+require_relative '../app/models/favorites'
 
-# Establish database connection
-configure :development do
-  set :database, 'sqlite3:db/database.db'
+puts ":seedling: Seeding data..."
+
+# Seed Users
+5.times do
+  User.create(
+    username: Faker::Internet.username,
+    email: Faker::Internet.email,
+    password: Faker::Internet.password
+  )
 end
 
-# Seed data
-Pet.create(
-  name: 'peanut',
-  description: 'Peanut is about 1 year old female chi weenie. Super sweet Snuggle bug. Loves to play with toys and other dogs.',
-  breeds: 'chihuahua',
-  type: 'dog',
-  species: 'Mammal',
-  contact: 'iperescure@gmail.com',
-  photos: 'fluffy.jpg',
-  due: nil,
-  status: 0
-)
+# Seed Pets
+10.times do
+  Pet.create(
+    name: Faker::Creature::Dog.name,
+    age: Faker::Number.between(from: 1, to: 10),
+    breed: Faker::Creature::Dog.breed,
+  
+  )
+end
 
-Pet.create(
-  name: 'Fluffy',
-  description: 'Adorable cat',
-  breeds: 'Persian',
-  type: 'Cat',
-  species: 'Mammal',
-  contact: '123-456-7890',
-  photos: 'fluffy.jpg',
-  due: nil,
-  status: 0
-)
+# Seed Favorites (associate users with their favorite pets)
 
-# Add more seed data as needed
+
+puts ":white_check_mark: Done seeding!"
